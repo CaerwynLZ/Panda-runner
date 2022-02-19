@@ -26,13 +26,18 @@ public class Movement : MonoBehaviour
     public float Destroysec = 5;
     private void FixedUpdate()
     {
+        //pause the game
         if (!alive)
         {
             return;
         }
+
+        //player movment
         forwardMovement = transform.forward * speed*Time.fixedDeltaTime;
         Vector3 horizontalMovement = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMulti;
         rb.MovePosition(rb.position + forwardMovement + horizontalMovement);
+
+        //distance calculate
         distance = (int)transform.position.z;
 
     }
@@ -52,8 +57,10 @@ public class Movement : MonoBehaviour
         scoreText.text = "Bamboo: " + score;
         DistanceText.text = "Distance: " +distance+"m";
 
-        //Movment
+        //Movment input
         horizontalInput = Input.GetAxis("Horizontal");
+
+        //movment bounds 
         if (transform.position.x < left)
         {
             transform.position = new Vector3(left + 0.5f, transform.position.y, transform.position.z);     
@@ -63,7 +70,7 @@ public class Movement : MonoBehaviour
             transform.position = new Vector3(right - 0.5f, transform.position.y, transform.position.z);
         }
 
-        //Acceleration
+        //Acceleration per time 
         if (secondAcce > 0)
         {
             secondAcce -= Time.deltaTime;
@@ -92,6 +99,7 @@ public class Movement : MonoBehaviour
 
     private void Restart()
     {
+        //reload the scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //SceneManager.LoadScene(3);
     }
@@ -106,11 +114,13 @@ public class Movement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //destory the lvl section
         Destroy(other.transform.root.gameObject, Destroysec);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //collect coin
         if(other.CompareTag("Coin"))
         {
             other.gameObject.SetActive(false);
