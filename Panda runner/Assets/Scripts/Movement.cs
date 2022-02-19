@@ -40,10 +40,9 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //scoreText.text = "Bamboo: " + score;
         left = -9;
         right = 9;
-
+        score = 0;
     }
 
     // Update is called once per frame
@@ -69,7 +68,7 @@ public class Movement : MonoBehaviour
         {
             secondAcce -= Time.deltaTime;
         }
-        else
+        else if(secondAcce==0)
         {
             secondAcce = 2;
             float velocityRatio = speed / maxaccelerate;
@@ -87,7 +86,6 @@ public class Movement : MonoBehaviour
         //make a game manager script and add it there later
         End.SetActive(true);
         alive = false;
-        score = 0;
         //Invoke("Restart", 0.5f);
         Time.timeScale = 0;
     }
