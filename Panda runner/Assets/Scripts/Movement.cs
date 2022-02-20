@@ -75,7 +75,7 @@ public class Movement : MonoBehaviour
         {
             secondAcce -= Time.deltaTime;
         }
-        else if(secondAcce==0)
+        else
         {
             secondAcce = 2;
             float velocityRatio = speed / maxaccelerate;
