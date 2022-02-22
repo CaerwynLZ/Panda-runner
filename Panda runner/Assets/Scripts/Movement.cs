@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     public Text scoreText;
     public Text DistanceText;
     public GameObject End;
+    public Text highScoreText;
 
     public int score = 0;
     public float speed = 5;
@@ -48,6 +49,8 @@ public class Movement : MonoBehaviour
         left = -9;
         right = 9;
         score = 0;
+
+        //highScoreText.text = $"HighScore: {PlayerPrefs.GetFloat("HighScore")}";
     }
 
     // Update is called once per frame
@@ -95,6 +98,11 @@ public class Movement : MonoBehaviour
         alive = false;
         //Invoke("Restart", 0.5f);
         Time.timeScale = 0;
+        if (distance > PlayerPrefs.GetFloat("HighScore"))
+        {
+            PlayerPrefs.SetFloat("HighScore", distance);
+        }
+        highScoreText.text = $"HighScore: {PlayerPrefs.GetFloat("HighScore")}";
     }
 
     private void Restart()
@@ -114,6 +122,7 @@ public class Movement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         //destory the lvl section
         Destroy(other.transform.root.gameObject, Destroysec);
     }

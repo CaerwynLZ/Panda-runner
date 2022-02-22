@@ -60,10 +60,10 @@ public class LevelGenerator : MonoBehaviour
         {
             coin.SetActive(true);
         }
-        Instantiate(section[secNumb], new Vector3(0, -0.5f, zPos), Quaternion.identity);
+        Instantiate(section2[secNumb], new Vector3(0, -0.5f, zPos), Quaternion.identity);
+        section2.Remove(section2[secNumb]);
         zPos +=160;
         yield return new WaitForSeconds(CreateSec);
         creatSection = false;
-        section2.Remove(section2[secNumb]);
     }
 }
